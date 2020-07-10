@@ -10,7 +10,17 @@ module ch03
 
 import public ch01
 
+
 ||| plusTNat was declared in ch01 to allow TNat to implement the Num interface,
 ||| but it's definition only appears in Chapter 3
-ch01.plusTNat Tzero m = m
-ch01.plusTNat (Tadd1 nMinus1) m = Tadd1 (plusTNat nMinus1 m)
+plusTNat : TNat -> TNat -> TNat
+plusTNat Tzero m = m
+plusTNat (Tadd1 nMinus1) m = Tadd1 (plusTNat nMinus1 m)
+
+timesTNat : TNat -> TNat -> TNat
+
+Num TNat where
+  (+) = plusTNat
+  (*) = timesTNat
+  fromInteger = fromIntegerTNat
+

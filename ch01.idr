@@ -17,8 +17,9 @@ module ch01
 ||| Idris doesn't have a built-in Atom or Symbol type, so for simplicity, we use
 ||| Strings instead, wrapped in a single-constructor data type.
 ||| Instead of 'ratatouille, write Q "ratatouille".
-||| We can't enforce that the strings consist of 1+ letters or hyphens
-||| TODO: maybe have some auto-proving magic ?
+|||
+||| TODO: We can't enforce that the strings consist of 1+ letters or hyphens.
+|||       maybe with some auto-proving magic ?
 data TAtom : Type where
   Q : String -> TAtom
 
@@ -61,21 +62,16 @@ data TNat : Type where
 ||| We implement conversion from integers for writing convenience, e.g., (the TNat 5)
 ||| As in Prelude.Nat, we map negative numbers to Tzero
 |||
-||| We leave implementations of (+) and (*) to ch03.idr
-plusTNat : TNat -> TNat -> TNat
-timesTNat : TNat -> TNat -> TNat
+||| We leave implementations of (+) and (*) to ch03.idr,
+||| where we also implement `Num TNat` using fromIntegerTNat
+fromIntegerTNat : Integer -> TNat
+fromIntegerTNat 0 = Tzero
+fromIntegerTNat n =
+  if (n > 0) then
+    Tadd1 (fromIntegerTNat (assert_smaller n (n - 1)))
+  else
+    Tzero
 
-Num TNat where
-  (+) = plusTNat
-  (*) = timesTNat
-  
-  fromInteger 0 = Tzero
-  fromInteger n =
-    if (n > 0) then
-      Tadd1 (fromInteger (assert_smaller n (n - 1)))
-    else
-      Tzero
-  
 ||| Frame 1:79
 one : TNat
 one = Tadd1 Tzero
