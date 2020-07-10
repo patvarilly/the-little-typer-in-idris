@@ -73,13 +73,13 @@ fromIntegerTNat n =
     Tzero
 
 ||| Frame 1:79
-one : TNat
-one = Tadd1 Tzero
+Tone : TNat
+Tone = Tadd1 Tzero
 
 ||| Frame 1:79
-two : TNat
-two = Tadd1 one
+Ttwo : TNat
+Ttwo = Tadd1 Tone
 
 ||| Frame 1:81
-four :TNat
-four = Tadd1 $ Tadd1 $ Tadd1 $ Tadd1 Tzero
+Tfour : TNat
+Tfour = Tadd1 $ Tadd1 $ Tadd1 $ Tadd1 Tzero
